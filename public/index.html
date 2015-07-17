@@ -27,57 +27,90 @@
 	<script src="js/core.js"></script> <!-- load our main application -->
 
 </head>
-<!-- SET THE CONTROLLER -->
+    
+    <!-- SIDEBAR NAV -->
+    <nav class="main-menu">
+      <ul>
+          <li>
+              <a href="#">
+                  <i class="fa fa-home fa-2x"></i>
+                  <span class="nav-text">
+                      Home
+                  </span>
+              </a>
+          </li>
+          <li>
+             <a href="#">
+                 <i class="fa fa-table fa-2x"></i>
+                  <span class="nav-text">
+                      Schedule
+                  </span>
+              </a>
+          </li>
+      </ul>
+
+      <ul class="logout">
+          <li>
+             <a href="#">
+                   <i class="fa fa-power-off fa-2x"></i>
+                  <span class="nav-text">
+                      Logout
+                  </span>
+              </a>
+          </li>  
+      </ul>
+    </nav>
+
+<!-- SET THE CONTROLLER FOR THE BODY -->
 <body ng-controller="mainController">
-	<div class="container">
-
-		<!-- HEADER AND TODO COUNT -->
-		<div class="jumbotron text-center">
-			<h1>I'm a Order-aholic <span class="label label-info">{{ orders.length }}</span></h1>
-		</div>
-
-		<!-- TODO LIST -->
-		<div id="order-list" class="row">
-			<div class="col-sm-4 col-sm-offset-4">
-
-				
-
-				<!-- LOOP OVER THE TODOS IN $scope.orders -->
-				<div class="checkbox" ng-repeat="order in orders">
-					<label>
-						<input type="checkbox" ng-click="deleteOrder(order._id)"> {{ order.text }}
-					</label>
-				</div>
-
-				<p class="text-center" ng-show="loading">
-					<span class="fa fa-spinner fa-spin fa-3x"></span>
-				</p>
-
-			</div>
-		</div>
-
-		<!-- FORM TO CREATE TODOS -->
-		<div id="order-form" class="row">
-			<div class="col-sm-8 col-sm-offset-2 text-center">
-				<form>
-					<div class="form-group">
-
-						<!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
-						<input type="text" class="form-control input-lg text-center" placeholder="I want to buy a puppy that will love me forever" ng-model="formData.text">
-					</div>
-
-					<!-- createToDo() WILL CREATE NEW TODOS -->
-					<button type="submit" class="btn btn-primary btn-lg" ng-click="createOrder()">Add</button>
-				</form>
-			</div>
-		</div>
-
-		<div class="text-center text-muted">
-			<p>A demo by <a href="http://scotch.io">Scotch</a>.</p>
-			<p>Read the <a href="http://scotch.io/tutorials/javascript/creating-a-single-page-order-app-with-node-and-angular">tutorial</a>.</p>
-		</div>
-
-	</div>
-
+<!-- 3 COLUMNS -->
+<div class="area">
+    <!-- ORDER INPUT -->
+      <div class="alert alert-info text-left">
+        <h1>Take Order</h1>
+        <!-- FORM TO CREATE TODOS -->
+        <div id="order-form" class="row">
+          <form class="form-inline">
+            <div class="form-group">
+              <!-- BIND THIS VALUE TO formData.custName IN ANGULAR -->
+              <input type="text" class="form-control" placeholder="Name" ng-model="formData.custName">
+            </div>
+            <div class="form-group">
+              <!-- BIND THIS VALUE TO formData.address IN ANGULAR -->
+              <input type="text" class="form-control" placeholder="Address" ng-model="formData.address">
+            </div>
+            <label for="inputAmount">$</label>
+            <div class="form-group">
+              <label class="sr-only" for="inputAmount">Amount (in dollars)</label>
+              <input type="text" class="form-control" id="inputAmount" placeholder="Amount">
+            </div>
+            <div class="form-group">
+              <!-- BIND THIS VALUE TO formData.custNotes IN ANGULAR -->
+              <textarea placeholder="Notes" class="form-control" ng-model="formData.custNotes"></textarea>
+            </div>
+            <div class="form-group">
+              <!-- createToDo() WILL CREATE NEW TODOS -->
+              <button type="submit" class="btn btn-primary btn-md" ng-click="createOrder()">Add</button>
+            </div>
+          </form>
+        </div>	
+      </div>
+    <!-- ORDER LIST -->        
+    <div class="col-md-6">
+      <div class="alert alert-danger">	
+        <h1>Customers in Queue <span class="label label-info">{{ orders.length }}</span></h1>
+        <!-- LOOP OVER THE TODOS IN $scope.orders -->
+        <div class="checkbox" ng-repeat="order in orders">
+          <label>
+            <input type="checkbox" ng-click="deleteOrder(order._id)"> {{ order.custName }}
+          </label>
+        </div>
+      </div>
+    </div>
+    <!-- 3RD COLUMN -->        
+    <div class="col-md-6">
+      <div class="alert alert-info">C</div>
+    </div>
+</div>
 </body>
 </html>

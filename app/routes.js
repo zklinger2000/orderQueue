@@ -26,7 +26,8 @@ module.exports = function(app) {
 
 		// create an order, information comes from AJAX request from Angular
 		Order.create({
-			text : req.body.text,
+			custName : req.body.custName,
+			custNotes : req.body.custNotes,
 			done : false
 		}, function(err, order) {
 			if (err)
