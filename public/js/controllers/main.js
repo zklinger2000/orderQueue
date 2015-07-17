@@ -3,10 +3,12 @@ angular.module('orderController', [])
 	// inject the Order service factory into our controller
 	.controller('mainController', ['$scope','$http','Orders', function($scope, $http, Orders) {
 		$scope.formData = {};
+		/*
 		$scope.filterFn = function(crew) {
 			if(formData.crew = crew) return true;
 			return false;
 		};
+		*/
 		$scope.loading = true;
 
 		// GET =====================================================================
