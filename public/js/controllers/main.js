@@ -17,10 +17,22 @@ angular.module('orderController', [])
 		// CREATE ==================================================================
 		// when submitting the add form, send the text to the node API
 		$scope.createOrder = function() {
-
+			
+			// let Address field be blank
+			if ($scope.formData.address == undefined) {
+				$scope.formData.address = '';
+			}
+			// let Notes field be blank
+			if ($scope.formData.amount === undefined) {
+				$scope.formData.amount = 0;
+			}
+			// let Notes field be blank
+			if ($scope.formData.custNotes == undefined) {
+				$scope.formData.custNotes = '';
+			}
 			// validate the formData to make sure that something is there
 			// if form is empty, nothing will happen
-			if ($scope.formData.custName != undefined && $scope.formData.custNotes != undefined) {
+			if ($scope.formData.custName != undefined) {
 				$scope.loading = true;
 
 				// call the create function from our service (returns a promise object)

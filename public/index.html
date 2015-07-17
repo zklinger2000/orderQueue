@@ -16,7 +16,7 @@
 		html 					{ overflow-y:scroll; }
 		body 					{ padding:20px; }
 		#order-list 			{ margin-bottom:10px; }
-		#order-form 	 		{ margin-bottom:10px; vertical-align: top; }
+		#order-form 	 		{ margin-bottom:10px; vertical-align:top;}
 	</style>
 
 	<!-- SPELLS -->
@@ -31,78 +31,45 @@
 
 
 <!-- SET THE CONTROLLER FOR THE BODY -->
-<body>
-<div class="container">
-<!-- SIDEBAR NAV -->
-<nav class="main-menu">
-  <ul>
-      <li>
-          <a href="#">
-              <i class="fa fa-home fa-2x"></i>
-              <span class="nav-text">
-                  Home
-              </span>
-          </a>
-      </li>
-      <li>
-         <a href="#">
-             <i class="fa fa-table fa-2x"></i>
-              <span class="nav-text">
-                  Schedule
-              </span>
-          </a>
-      </li>
-  </ul>
-
-  <ul class="logout">
-      <li>
-         <a href="#">
-               <i class="fa fa-power-off fa-2x"></i>
-              <span class="nav-text">
-                  Logout
-              </span>
-          </a>
-      </li>  
-  </ul>
-</nav>
-</div>
+<body ng-controller="mainController">
 <!-- 3 COLUMNS -->
-<div class="container-fluid" ng-controller="mainController">
+<div class="container-fluid">
   <div class="row">
     <!-- ORDER INPUT -->
     <div class="alert alert-info col-md-12">
       <h2>Add Job</h2>
       <!-- FORM TO CREATE TODOS -->
         <form class="form-inline" id="order-form">
-          <div class="form-group">
             <!-- BIND THIS VALUE TO formData.custName IN ANGULAR -->
-            <input type="select" class="form-control" ng-model="formData.crew">
-          </div>
-          <div class="form-group">
+            <label for="inputCrew">Crew</label>
+            <select class="input-sm" ng-model="formData.crew" id="inputCrew">
+              <option>Ken</option>
+              <option>Gary</option>
+              <option>Jim</option>
+              <option>David</option>
+            </select>
             <!-- BIND THIS VALUE TO formData.custName IN ANGULAR -->
-            <input type="text" class="form-control" placeholder="Name" ng-model="formData.custName">
-          </div>
-          <div class="form-group">
+            <input type="text" placeholder="Customer Name" ng-model="formData.custName">
             <!-- BIND THIS VALUE TO formData.address IN ANGULAR -->
-            <input type="text" class="form-control" placeholder="Address" ng-model="formData.address">
-          </div>
-          <label for="inputAmount">$</label>
-          <div class="form-group">
+            <input type="text" placeholder="Address" ng-model="formData.address">
+            <label for="inputAmount">$</label>
             <label class="sr-only" for="inputAmount">Amount (in dollars)</label>
-            <input type="text" class="form-control" id="inputAmount" placeholder="Amount">
-          </div>
-          <div class="form-group">
+            <input type="text" id="inputAmount" placeholder="Amount" ng-model="formData.amount">
+            <!-- BIND THIS VALUE TO formData.custName IN ANGULAR -->
+            <label for="inputConfirm">Confirmed</label>
+            <select class="input-sm" ng-model="formData.confirm" id="inputConfirm">
+              <option value="0">No</option>
+              <option value="1">Yes</option>
+              <option value="2">Left message</option>
+            </select>
             <!-- BIND THIS VALUE TO formData.custNotes IN ANGULAR -->
-            <textarea placeholder="Notes" class="form-control" rows="3" cols="36" ng-model="formData.custNotes"></textarea>
-          </div>
-          <div class="form-group">
+            <textarea placeholder="Notes" rows="3" cols="36" ng-model="formData.custNotes"></textarea>
             <!-- createToDo() WILL CREATE NEW TODOS -->
             <button type="submit" class="btn btn-primary" ng-click="createOrder()">Add</button>
-          </div>
         </form>
     </div>
     <!-- ORDER LIST -->        
-    <div class="col-md-6">
+    <div class="col-md-4">
       <div class="alert alert-danger">	
         <h2>Customers in Queue <span class="label label-info">{{ orders.length }}</span></h2>
         <!-- LOOP OVER THE TODOS IN $scope.orders -->
@@ -114,7 +81,7 @@
       </div>
     </div>
     <!-- 3RD COLUMN -->        
-    <div class="col-md-6">
+    <div class="col-md-4">
       <div class="alert alert-info">C</div>
     </div>
   </div>
