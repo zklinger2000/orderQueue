@@ -19,6 +19,10 @@ angular.module('orderController', [])
 		$scope.createOrder = function() {
 			
 			// let Address field be blank
+			if ($scope.formData.crew == undefined) {
+				$scope.formData.crew = '';
+			}
+			// let Address field be blank
 			if ($scope.formData.address == undefined) {
 				$scope.formData.address = '';
 			}
