@@ -14,9 +14,9 @@
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
 	<style>
 		html 					{ overflow-y:scroll; }
-		body 					{ padding-top:50px; }
-		#order-list 				{ margin-bottom:30px; }
-		#order-form 	 			{ margin-bottom:50px; }
+		body 					{ padding:20px; }
+		#order-list 			{ margin-bottom:10px; }
+		#order-form 	 		{ margin-bottom:10px; vertical-align: top; }
 	</style>
 
 	<!-- SPELLS -->
@@ -28,77 +28,83 @@
 
 </head>
     
-    <!-- SIDEBAR NAV -->
-    <nav class="main-menu">
-      <ul>
-          <li>
-              <a href="#">
-                  <i class="fa fa-home fa-2x"></i>
-                  <span class="nav-text">
-                      Home
-                  </span>
-              </a>
-          </li>
-          <li>
-             <a href="#">
-                 <i class="fa fa-table fa-2x"></i>
-                  <span class="nav-text">
-                      Schedule
-                  </span>
-              </a>
-          </li>
-      </ul>
 
-      <ul class="logout">
-          <li>
-             <a href="#">
-                   <i class="fa fa-power-off fa-2x"></i>
-                  <span class="nav-text">
-                      Logout
-                  </span>
-              </a>
-          </li>  
-      </ul>
-    </nav>
 
 <!-- SET THE CONTROLLER FOR THE BODY -->
-<body ng-controller="mainController">
+<body>
+<div class="container">
+<!-- SIDEBAR NAV -->
+<nav class="main-menu">
+  <ul>
+      <li>
+          <a href="#">
+              <i class="fa fa-home fa-2x"></i>
+              <span class="nav-text">
+                  Home
+              </span>
+          </a>
+      </li>
+      <li>
+         <a href="#">
+             <i class="fa fa-table fa-2x"></i>
+              <span class="nav-text">
+                  Schedule
+              </span>
+          </a>
+      </li>
+  </ul>
+
+  <ul class="logout">
+      <li>
+         <a href="#">
+               <i class="fa fa-power-off fa-2x"></i>
+              <span class="nav-text">
+                  Logout
+              </span>
+          </a>
+      </li>  
+  </ul>
+</nav>
+</div>
 <!-- 3 COLUMNS -->
-<div class="area">
+<div class="container-fluid" ng-controller="mainController">
+  <div class="row">
     <!-- ORDER INPUT -->
-      <div class="alert alert-info text-left">
-        <h1>Take Order</h1>
-        <!-- FORM TO CREATE TODOS -->
-        <div id="order-form" class="row">
-          <form class="form-inline">
-            <div class="form-group">
-              <!-- BIND THIS VALUE TO formData.custName IN ANGULAR -->
-              <input type="text" class="form-control" placeholder="Name" ng-model="formData.custName">
-            </div>
-            <div class="form-group">
-              <!-- BIND THIS VALUE TO formData.address IN ANGULAR -->
-              <input type="text" class="form-control" placeholder="Address" ng-model="formData.address">
-            </div>
-            <label for="inputAmount">$</label>
-            <div class="form-group">
-              <label class="sr-only" for="inputAmount">Amount (in dollars)</label>
-              <input type="text" class="form-control" id="inputAmount" placeholder="Amount">
-            </div>
-            <div class="form-group">
-              <!-- BIND THIS VALUE TO formData.custNotes IN ANGULAR -->
-              <textarea placeholder="Notes" class="form-control" ng-model="formData.custNotes"></textarea>
-            </div>
-            <div class="form-group">
-              <!-- createToDo() WILL CREATE NEW TODOS -->
-              <button type="submit" class="btn btn-primary btn-md" ng-click="createOrder()">Add</button>
-            </div>
-          </form>
-        </div>	
-      </div>
+    <div class="alert alert-info col-md-12">
+      <h2>Add Job</h2>
+      <!-- FORM TO CREATE TODOS -->
+        <form class="form-inline" id="order-form">
+          <div class="form-group">
+            <!-- BIND THIS VALUE TO formData.custName IN ANGULAR -->
+            <input type="select" class="form-control" ng-model="formData.crew">
+          </div>
+          <div class="form-group">
+            <!-- BIND THIS VALUE TO formData.custName IN ANGULAR -->
+            <input type="text" class="form-control" placeholder="Name" ng-model="formData.custName">
+          </div>
+          <div class="form-group">
+            <!-- BIND THIS VALUE TO formData.address IN ANGULAR -->
+            <input type="text" class="form-control" placeholder="Address" ng-model="formData.address">
+          </div>
+          <label for="inputAmount">$</label>
+          <div class="form-group">
+            <label class="sr-only" for="inputAmount">Amount (in dollars)</label>
+            <input type="text" class="form-control" id="inputAmount" placeholder="Amount">
+          </div>
+          <div class="form-group">
+            <!-- BIND THIS VALUE TO formData.custNotes IN ANGULAR -->
+            <textarea placeholder="Notes" class="form-control" rows="3" cols="36" ng-model="formData.custNotes"></textarea>
+          </div>
+          <div class="form-group">
+            <!-- createToDo() WILL CREATE NEW TODOS -->
+            <button type="submit" class="btn btn-primary" ng-click="createOrder()">Add</button>
+          </div>
+        </form>
+    </div>
     <!-- ORDER LIST -->        
     <div class="col-md-6">
       <div class="alert alert-danger">	
-        <h1>Customers in Queue <span class="label label-info">{{ orders.length }}</span></h1>
+        <h2>Customers in Queue <span class="label label-info">{{ orders.length }}</span></h2>
         <!-- LOOP OVER THE TODOS IN $scope.orders -->
         <div class="checkbox" ng-repeat="order in orders">
           <label>
@@ -111,6 +117,7 @@
     <div class="col-md-6">
       <div class="alert alert-info">C</div>
     </div>
+  </div>
 </div>
 </body>
 </html>
