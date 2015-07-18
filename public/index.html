@@ -25,21 +25,21 @@
 	<script src="js/controllers/main.js"></script> <!-- load up our controller -->
 	<script src="js/services/orders.js"></script> <!-- load our order service -->
 	<script src="js/core.js"></script> <!-- load our main application -->
-
 </head>
     
-
-
 <!-- SET THE CONTROLLER FOR THE BODY -->
 <body ng-controller="mainController">
+  
 <!-- 3 COLUMNS -->
 <div class="container-fluid">
   <div class="row">
     <!-- ORDER INPUT -->
     <div class="alert alert-info col-md-12">
       <h2>Add Job</h2>
+      
       <!-- FORM TO CREATE TODOS -->
         <form class="form-inline" id="order-form">
+            <input type=date class="input-sm" id="datePicker">
             <!-- BIND THIS VALUE TO formData.custName IN ANGULAR -->
             <label for="inputCrew">Crew</label>
             <select class="input-sm" ng-model="formData.crew" id="inputCrew">
