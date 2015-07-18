@@ -84,7 +84,7 @@
     <div class="col-md-4">
 		<div class="alert alert-info">
 		  <h2>Ken</h2>
-		  <div ng-repeat="order in orders | filter:{ crew: 'Ken' }">{{ order.custName }}</div>
+		  <div ng-repeat="order in orders | byCrewName">{{ order.custName }}</div>
 		</div>
     </div>
   </div>

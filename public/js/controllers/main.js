@@ -1,5 +1,17 @@
 angular.module('orderController', [])
 
+	// a filter for the crew names
+	.filter('byCrewName', function() {
+		return function(input) {
+			var out = [];
+
+			angular.forEach(input, function(job) {
+				if (job.crew == 'Ken') out.push(job);
+			})
+			return out;
+		}
+	})
+
 	// inject the Order service factory into our controller
 	.controller('mainController', ['$scope','$http','Orders', function($scope, $http, Orders) {
 		$scope.formData = {};
