@@ -2,11 +2,14 @@ angular.module('orderController', [])
 
 	// a filter for the crew names
 	.filter('byCrewName', function() {
-		return function(input) {
+		// when using ng-repeat, the input that gets passed is each item in the list
+		return function(input, crew) {
+			//create an empty array for output of items
 			var out = [];
-
+			//use Angular's forEach to loop through each item.  'job' here can be called
+			//anything because it is just the callback item variable name
 			angular.forEach(input, function(job) {
-				if (job.crew == 'Ken') out.push(job);
+				if (job.crew == crew) out.push(job);
 			})
 			return out;
 		}
