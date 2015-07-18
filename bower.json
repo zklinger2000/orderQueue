@@ -1,0 +1,24 @@
+{
+  "name": "jobList",
+  "version": "0.0.1",
+  "homepage": "https://github.com/zklinger2000/orderQueue",
+  "authors": [
+    "Zack Klinger <zklinger@gmail.com>"
+  ],
+  "description": "Job Scheduler",
+  "main": "server.js",
+  "moduleType": [
+    "node"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-bootstrap-datetimepicker": "latest"
+  }
+}
