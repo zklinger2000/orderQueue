@@ -52,8 +52,8 @@ angular.module('orderController', [])
 				$scope.formData.amount = 0;
 			}
 			// let Notes field be blank
-			if ($scope.formData.custNotes == undefined) {
-				$scope.formData.custNotes = '';
+			if ($scope.formData.notes == undefined) {
+				$scope.formData.notes = '';
 			}
 			// validate the formData to make sure that something is there
 			// if form is empty, nothing will happen

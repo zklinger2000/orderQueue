@@ -39,7 +39,7 @@
       
       <!-- FORM TO CREATE TODOS -->
         <form class="form-inline" id="order-form">
-            <input type=date class="input-sm" id="datePicker">
+            <input type=date class="input-md" id="datePicker">
             <!-- BIND THIS VALUE TO formData.custName IN ANGULAR -->
             <label for="inputCrew">Crew</label>
             <select class="input-sm" ng-model="formData.crew" id="inputCrew">
@@ -62,8 +62,8 @@
               <option value="1">Yes</option>
               <option value="2">Left message</option>
             </select>
-            <!-- BIND THIS VALUE TO formData.custNotes IN ANGULAR -->
-            <textarea placeholder="Notes" rows="3" cols="36" ng-model="formData.custNotes"></textarea>
+            <!-- BIND THIS VALUE TO formData.notes IN ANGULAR -->
+            <textarea placeholder="Notes" rows="3" cols="36" ng-model="formData.notes"></textarea>
             <!-- createToDo() WILL CREATE NEW TODOS -->
             <button type="submit" class="btn btn-primary" ng-click="createOrder()">Add</button>
         </form>

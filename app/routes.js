@@ -30,7 +30,7 @@ module.exports = function(app) {
 			custName : req.body.custName,
 			address: req.body.address,
 			amount : req.body.amount,
-			custNotes : req.body.custNotes,
+			notes : req.body.notes,
 			done : false
 		}, function(err, order) {
 			if (err)
