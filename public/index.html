@@ -84,28 +84,28 @@
     <div class="col-md-4">
 		<div class="alert alert-info">
 		  <h2>Ken</h2>
-		  <div ng-repeat="order in orders | byCrewName:'Ken'">{{ order.custName }}</div>
+		  <div ng-repeat="order in orders | byCrewName:'Ken'">{{ order.custName }}  ${{order.total}}</div>
 		</div>
     </div>
     <!-- 4TH COLUMN -->        
     <div class="col-md-4">
 		<div class="alert alert-danger">
 		  <h2>Gary</h2>
-		  <div ng-repeat="order in orders | byCrewName:'Gary'">{{ order.custName }}</div>
+		  <div ng-repeat="order in orders | byCrewName:'Gary'">{{ order.custName }}  ${{order.total}}</div>
 		</div>
     </div>
     <!-- 5TH COLUMN -->        
     <div class="col-md-4">
 		<div class="alert alert-danger">
 		  <h2>Jim</h2>
-		  <div ng-repeat="order in orders | byCrewName:'Jim'">{{ order.custName }} {{order.total}}</div>
+		  <div ng-repeat="order in orders | byCrewName:'Jim'">{{ order.custName }}  ${{order.total}}</div>
 		</div>
     </div>
     <!-- 6TH COLUMN -->        
     <div class="col-md-4">
 		<div class="alert alert-danger">
 		  <h2>David</h2>
-		  <div ng-repeat="order in orders | byCrewName:'David'">{{ order.custName }}</div>
+		  <div ng-repeat="order in orders | byCrewName:'David'">{{ order.custName }}  ${{order.total}}</div>
 		</div>
     </div>
   </div>
