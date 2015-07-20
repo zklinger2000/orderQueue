@@ -74,7 +74,12 @@ angular.module('orderController', [])
 					// if successful creation, call our get function to get all the new orders
 					.success(function(data) {
 						$scope.loading = false;
-						$scope.formData = {}; // clear the form so our user is ready to enter another
+						// clear the form so our user is ready to enter another
+						$scope.formData.custName = '';
+						$scope.formData.address = '';
+						$scope.formData.total = undefined;
+						$scope.formData.confirm = undefined;
+						$scope.formData.notes = '';
 						$scope.orders = data; // assign our new list of orders
 					});
 			}
