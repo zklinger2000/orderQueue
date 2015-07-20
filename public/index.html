@@ -39,7 +39,7 @@
       
       <!-- FORM TO CREATE TODOS -->
         <form class="form-inline" id="order-form">
-            <input type=date class="input-md" id="datePicker">
+            <input type=date class="input-md" ng-model="formData.date" id="datePicker">
             <!-- BIND THIS VALUE TO formData.custName IN ANGULAR -->
             <label for="inputCrew">Crew</label>
             <select class="input-sm" ng-model="formData.crew" id="inputCrew">
