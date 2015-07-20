@@ -30,6 +30,7 @@ module.exports = function(app) {
 			custName : req.body.custName,
 			address: req.body.address,
 			total : req.body.total,
+			confirm : req.body.confirm,
 			notes : req.body.notes,
 			done : false
 		}, function(err, order) {

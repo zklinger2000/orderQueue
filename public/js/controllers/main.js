@@ -52,6 +52,10 @@ angular.module('orderController', [])
 				$scope.formData.total = 0;
 			}
 			// let Notes field be blank
+			if ($scope.formData.confirm == undefined) {
+				$scope.formData.confirm = '';
+			}
+			// let Notes field be blank
 			if ($scope.formData.notes == undefined) {
 				$scope.formData.notes = '';
 			}
