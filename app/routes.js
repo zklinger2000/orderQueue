@@ -29,7 +29,7 @@ module.exports = function(app) {
 			crew : req.body.crew,
 			custName : req.body.custName,
 			address: req.body.address,
-			amount : req.body.amount,
+			total : req.body.total,
 			notes : req.body.notes,
 			done : false
 		}, function(err, order) {

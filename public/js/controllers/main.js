@@ -48,8 +48,8 @@ angular.module('orderController', [])
 				$scope.formData.address = '';
 			}
 			// let Notes field be blank
-			if ($scope.formData.amount === undefined) {
-				$scope.formData.amount = 0;
+			if ($scope.formData.total === undefined) {
+				$scope.formData.total = 0;
 			}
 			// let Notes field be blank
 			if ($scope.formData.notes == undefined) {
