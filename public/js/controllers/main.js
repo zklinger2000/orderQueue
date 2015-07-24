@@ -16,24 +16,52 @@ angular.module('orderController', [])
 	})
 
 	// inject the Order service factory into our controller
-	.controller('mainController', ['$scope','$http','Orders', function($scope, $http, Orders) {
+	.controller('mainController', ['$scope','$filter','$http','Orders', function($scope, $filter, $http, Orders) {
 		$scope.formData = {};
+		$scope.formData.date = $filter("date")(Date.now(), 'yyyy-MM-dd');
 		/*
 		$scope.filterFn = function(crew) {
 			if(formData.crew = crew) return true;
 			return false;
 		};
 		*/
+
+		/*
+		// get the count of jobs by crew for the Date in datePicker
+		$scope.getTotalByCrew = function(crew) {
+			return Orders.getTotalByCrew(crew, $scope.formData.date);
+		};
+		*/
+
 		$scope.loading = true;
 
 		// GET =====================================================================
 		// when landing on the page, get all orders and show them
 		// use the service to get all the orders
-		Orders.get()
+		console.log("*** controllers/main/ Orders.getByDate($scope.formData.date) ***" + Date.now());
+		Orders.getByDate($scope.formData.date)
+		//Orders.get()
 			.success(function(data) {
+				//console.log("*** controllers/main/ Orders.getByDate($scope.dormData.date) ***");
+				console.log("*** controllers/main/ Orders.getByDate().success ***" + Date.now());
 				$scope.orders = data;
 				$scope.loading = false;
 			});
+
+		// get all orders by date
+		$scope.getOrdersByDate = function() {
+			$scope.loading = true;
+
+			console.log("*** controllers/main/ Orders.getByDate($scope.formData.date) ***" + Date.now());
+			Orders.getByDate($scope.formData.date)
+			//Orders.get()
+				.success(function(data) {
+					//console.log("*** controllers/main/ Orders.getByDate($scope.dormData.date) ***");
+					console.log("*** controllers/main/ Orders.getByDate().success ***" + Date.now());
+					$scope.orders = data;
+					$scope.loading = false;
+				});
+		};
 
 		// CREATE ==================================================================
 		// when submitting the add form, send the text to the node API

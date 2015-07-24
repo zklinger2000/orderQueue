@@ -1,8 +1,8 @@
 var Order = require('./models/order');
 
 function getOrders(res){
+	console.log("*** app/routes.js getOrders(res) ***" + Date.now());
 	Order.find(function(err, orders) {
-
 			// if there is an error retrieving, send the error. nothing after res.send(err) will execute
 			if (err)
 				res.send(err)
@@ -11,12 +11,23 @@ function getOrders(res){
 		});
 };
 
+
+function getOrdersByDate(res){
+	console.log("*** app/routes.js getOrdersByDate(req, res) ***" + Date.now());
+	Order.find(function(err, orders) {
+		if (err)
+			res.send(err);
+
+		res.json(orders); // return all orders in JSON format
+	});
+};
+
 module.exports = function(app) {
 
 	// api ---------------------------------------------------------------------
 	// get all orders
 	app.get('/api/orders', function(req, res) {
-
+		console.log("*** app/routes.js app.get('/api/orders')  ***" + Date.now());
 		// use mongoose to get all orders in the database
 		getOrders(res);
 	});
@@ -42,6 +53,21 @@ module.exports = function(app) {
 			getOrders(res);
 		});
 
+	});
+
+	// retrieve orders by date
+	app.get('/api/orders/:order_date', function(req, res) {
+		console.log("*** app/routes.js app.get('/api/orders/:order_date')  ***" + req.params.order_date);
+		Order.find({
+			//"date": {"$gt": new Date(2015, 6, 19), "$lt": new Date(2015, 6, 20)}
+			//"date" : {"$lt": req.params.order_date}
+			"date" : req.params.order_date
+		}, function(err, orders) {
+			if (err)
+				res.send(err);
+
+			res.json(orders); // return all orders in JSON format
+		})
 	});
 
 	// delete an order
