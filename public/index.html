@@ -14,7 +14,7 @@
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
 	<style>
 		html 					{ overflow-y:scroll; }
-		body 					{ padding:20px; }
+		body 					{ padding:5px; }
 		#order-list 			{ margin-bottom:10px; }
 		#order-form 	 		{ margin-bottom:10px; vertical-align:top;}
 	</style>
@@ -77,37 +77,45 @@
         <!-- LOOP OVER THE TODOS IN $scope.orders -->
         <div class="checkbox" ng-repeat="order in orders">
           <label>
-            <input type="checkbox" ng-click="deleteOrder(order._id)"> {{ order.custName }}
+            <input type="checkbox" ng-click="deleteOrder(order._id, order.date)"> {{ order.custName }}
           </label>
         </div>
       </div>
     </div>
-    <!-- 3RD COLUMN -->        
+    <!-- KEN COLUMN -->        
     <div class="col-md-4">
 		<div class="alert alert-info">
-		  <h2>Ken</h2>
-		  <div ng-repeat="order in orders | byCrewName:'Ken'">{{ order.custName }}  ${{order.total}}</div>
+          <h3>Ken</h3>
+		  <h4 style="display:inline-block; min-width:65%;" ng-model="formData.date">{{ formData.date | date:'fullDate' }}</h4>
+          <h4 style="display:inline-block; min-width:30%;">Total: ${{getTotalByCrew('Ken')}}</h4>
+		  <div ng-repeat="order in kenOrders = (orders | byCrewName:'Ken')">{{ order.custName }}  ${{order.total}}</div>
 		</div>
     </div>
-    <!-- 4TH COLUMN -->        
+    <!-- GARY COLUMN -->        
     <div class="col-md-4">
 		<div class="alert alert-danger">
-		  <h2>Gary Total: ${{getTotalByCrew('Gary')}}</h2>
+          <h3>Gary</h3>
+		  <h4 style="display:inline-block; min-width:65%;" ng-model="formData.date">{{ formData.date | date:'fullDate' }}</h4>
+          <h4 style="display:inline-block; min-width:30%;">Total: ${{getTotalByCrew('Gary')}}</h4>
 		  <div ng-repeat="order in orders | byCrewName:'Gary'">{{ order.custName }}  ${{order.total}}</div>
 		</div>
     </div>
-    <!-- 5TH COLUMN -->        
+    <!-- JIM COLUMN -->        
     <div class="col-md-4">
 		<div class="alert alert-danger">
-		  <h2>Jim</h2>
-		  <div ng-repeat="order in filtered = (orders | byCrewName:'Jim')">{{ order.custName }}  ${{order.total}} {{ filtered.length }}</div>
+          <h3>Jim</h3>
+		  <h4 style="display:inline-block; min-width:65%;" ng-model="formData.date">{{ formData.date | date:'fullDate' }}</h4>
+          <h4 style="display:inline-block; min-width:30%;">Total: ${{getTotalByCrew('Jim')}}</h4>
+		  <div ng-repeat="order in orders | byCrewName:'Jim'">{{ order.custName }}  ${{order.total}}</div>
 		</div>
     </div>
-    <!-- 6TH COLUMN -->        
+    <!-- DAVID COLUMN -->        
     <div class="col-md-4">
 		<div class="alert alert-danger">
-		  <h2>David</h2>
-		  <div ng-repeat="order in davidFiltered = (orders | byCrewName:'David')">{{ order.custName }}  ${{order.total}} {{ davidFiltered.length }}</div>
+          <h3>David</h3>
+		  <h4 style="display:inline-block; min-width:65%;" ng-model="formData.date">{{ formData.date | date:'fullDate' }}</h4>
+          <h4 style="display:inline-block; min-width:30%;">Total: ${{getTotalByCrew('David')}}</h4>
+		  <div ng-repeat="order in orders | byCrewName:'David'">{{ order.custName }}  ${{order.total}}</div>
 		</div>
     </div>
   </div>

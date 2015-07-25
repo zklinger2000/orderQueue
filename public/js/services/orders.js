@@ -11,8 +11,8 @@ angular.module('orderService', [])
 			create : function(orderData) {
 				return $http.post('/api/orders', orderData);
 			},
-			delete : function(id) {
-				return $http.delete('/api/orders/' + id);
+			delete : function(id, date) {
+				return $http.delete('/api/orders/' + id + '/' + date);
 			},
 			getByDate : function(date) {
 				console.log("*** services/orders/ getByDate(date) ***" + Date.now());

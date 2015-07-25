@@ -1,7 +1,7 @@
 var Order = require('./models/order');
 
 function getOrders(res){
-	console.log("*** app/routes.js getOrders(res) ***" + Date.now());
+	console.log("*** app/routes.js getOrders(res) *** " + Date.now());
 	Order.find(function(err, orders) {
 			// if there is an error retrieving, send the error. nothing after res.send(err) will execute
 			if (err)
@@ -12,14 +12,18 @@ function getOrders(res){
 };
 
 
-function getOrdersByDate(res){
-	console.log("*** app/routes.js getOrdersByDate(req, res) ***" + Date.now());
-	Order.find(function(err, orders) {
+function getOrdersByDate(date, res){
+	console.log("*** app/routes.js getOrdersByDate(req, res) *** " + Date.now() + " date: " + date);
+	Order.find({
+		//"date": {"$gt": new Date(2015, 6, 19), "$lt": new Date(2015, 6, 20)}
+		//"date" : {"$lt": req.params.order_date}
+		"date" : date
+	}, function(err, orders) {
 		if (err)
 			res.send(err);
 
 		res.json(orders); // return all orders in JSON format
-	});
+	})
 };
 
 module.exports = function(app) {
@@ -27,7 +31,7 @@ module.exports = function(app) {
 	// api ---------------------------------------------------------------------
 	// get all orders
 	app.get('/api/orders', function(req, res) {
-		console.log("*** app/routes.js app.get('/api/orders')  ***" + Date.now());
+		console.log("*** app/routes.js app.get('/api/orders')  *** " + Date.now());
 		// use mongoose to get all orders in the database
 		getOrders(res);
 	});
@@ -50,7 +54,9 @@ module.exports = function(app) {
 				res.send(err);
 
 			// get and return all the orders after you create another
-			getOrders(res);
+			getOrdersByDate(req.body.date, res);
+			//getOrdersByDate(req, res);
+			//getOrders(res);
 		});
 
 	});
@@ -58,6 +64,7 @@ module.exports = function(app) {
 	// retrieve orders by date
 	app.get('/api/orders/:order_date', function(req, res) {
 		console.log("*** app/routes.js app.get('/api/orders/:order_date')  ***" + req.params.order_date);
+		/*
 		Order.find({
 			//"date": {"$gt": new Date(2015, 6, 19), "$lt": new Date(2015, 6, 20)}
 			//"date" : {"$lt": req.params.order_date}
@@ -68,17 +75,21 @@ module.exports = function(app) {
 
 			res.json(orders); // return all orders in JSON format
 		})
+		*/
+		getOrdersByDate(req.params.order_date, res);
 	});
 
 	// delete an order
-	app.delete('/api/orders/:order_id', function(req, res) {
+	app.delete('/api/orders/:order_id/:order_date', function(req, res) {
 		Order.remove({
 			_id : req.params.order_id
 		}, function(err, order) {
 			if (err)
 				res.send(err);
-
-			getOrders(res);
+			console.log(res);
+			getOrdersByDate(req.params.order_date, res);
+			//getOrdersByDate(req, res);
+			//getOrders(res);
 		});
 	});
 

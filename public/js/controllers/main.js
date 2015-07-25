@@ -115,10 +115,10 @@ angular.module('orderController', [])
 
 		// DELETE ==================================================================
 		// delete an order after checking it
-		$scope.deleteOrder = function(id) {
+		$scope.deleteOrder = function(id, date) {
 			$scope.loading = true;
 
-			Orders.delete(id)
+			Orders.delete(id, date)
 				// if successful creation, call our get function to get all the new orders
 				.success(function(data) {
 					$scope.loading = false;
