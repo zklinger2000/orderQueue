@@ -70,7 +70,13 @@
             <button type="submit" class="btn btn-primary" ng-click="createOrder()">Add</button>
         </form>
     </div>
-    <!-- ORDER LIST -->        
+    <!-- ORDER LIST -->
+    <!-- EMPTY SCHEDULE COLUMN -->        
+    <div ng-hide="orders.length" class="ng-show">
+		<div class="alert alert-danger">
+		  <h1 style="display:block; text-align:center; min-width:90%;" ng-model="formData.date">No Jobs scheduled for {{ formData.date | date:'fullDate' }}</h1>
+		</div>
+    </div>
     <div class="col-md-4">
       <div class="alert alert-danger">	
         <h2>Customers in Queue <span class="label label-info">{{ orders.length }}</span></h2>
@@ -83,7 +89,7 @@
       </div>
     </div>
     <!-- KEN COLUMN -->        
-    <div class="col-md-4">
+    <div ng-show="(orders | byCrewName:'Ken').length" class="ng-hide col-md-4">
 		<div class="alert alert-info">
           <h3>Ken</h3>
 		  <h4 style="display:inline-block; min-width:65%;" ng-model="formData.date">{{ formData.date | date:'fullDate' }}</h4>
@@ -91,8 +97,9 @@
 		  <div ng-repeat="order in kenOrders = (orders | byCrewName:'Ken')">{{ order.custName }}  ${{order.total}}</div>
 		</div>
     </div>
-    <!-- GARY COLUMN -->        
-    <div class="col-md-4">
+    <!-- GARY COLUMN -->
+    <!-- when $scope.myValue is falsy (element is hidden) -->
+    <div ng-show="(orders | byCrewName:'Gary').length" class="ng-hide col-md-4">
 		<div class="alert alert-danger">
           <h3>Gary</h3>
 		  <h4 style="display:inline-block; min-width:65%;" ng-model="formData.date">{{ formData.date | date:'fullDate' }}</h4>
@@ -101,7 +108,7 @@
 		</div>
     </div>
     <!-- JIM COLUMN -->        
-    <div class="col-md-4">
+    <div ng-show="(orders | byCrewName:'Jim').length" class="ng-hide col-md-4">
 		<div class="alert alert-danger">
           <h3>Jim</h3>
 		  <h4 style="display:inline-block; min-width:65%;" ng-model="formData.date">{{ formData.date | date:'fullDate' }}</h4>
@@ -110,7 +117,7 @@
 		</div>
     </div>
     <!-- DAVID COLUMN -->        
-    <div class="col-md-4">
+    <div ng-show="(orders | byCrewName:'David').length" class="ng-hide col-md-4">
 		<div class="alert alert-danger">
           <h3>David</h3>
 		  <h4 style="display:inline-block; min-width:65%;" ng-model="formData.date">{{ formData.date | date:'fullDate' }}</h4>
