@@ -43,10 +43,7 @@
             <!-- BIND THIS VALUE TO formData.custName IN ANGULAR -->
             <label for="inputCrew">Crew</label>
             <select class="input-sm" ng-model="formData.crew" id="inputCrew">
-              <option>Ken</option>
-              <option>Gary</option>
-              <option>Jim</option>
-              <option>David</option>
+              <option ng-repeat="crew in formData.crews">{{ crew.foreman }}</option>
             </select>
             <!-- BIND THIS VALUE TO formData.custName IN ANGULAR -->
             <input type="text" placeholder="Customer Name" ng-model="formData.custName">
@@ -77,6 +74,7 @@
 		  <h1 style="display:block; text-align:center; min-width:90%;" ng-model="formData.date">No Jobs scheduled for {{ formData.date | date:'fullDate' }}</h1>
 		</div>
     </div>
+    
     <div class="col-md-4">
       <div class="alert alert-danger">	
         <h2>Customers in Queue <span class="label label-info">{{ orders.length }}</span></h2>
@@ -87,14 +85,15 @@
           </label>
         </div>
       </div>
-    </div>
+    </div>   
+ 
     <!-- KEN COLUMN -->        
     <div ng-show="(orders | byCrewName:'Ken').length" class="ng-hide col-md-4">
 		<div class="alert alert-info">
           <h3>Ken</h3>
 		  <h4 style="display:inline-block; min-width:65%;" ng-model="formData.date">{{ formData.date | date:'fullDate' }}</h4>
           <h4 style="display:inline-block; min-width:30%;">Total: ${{getTotalByCrew('Ken')}}</h4>
-		  <div ng-repeat="order in kenOrders = (orders | byCrewName:'Ken')">{{ order.custName }}  ${{order.total}}</div>
+		  <div ng-repeat="order in orders | byCrewName:'Ken'">{{ order.custName }}  ${{order.total}}</div>
 		</div>
     </div>
     <!-- GARY COLUMN -->
@@ -125,6 +124,8 @@
 		  <div ng-repeat="order in orders | byCrewName:'David'">{{ order.custName }}  ${{order.total}}</div>
 		</div>
     </div>
+
+    
   </div>
 </div>
 </body>
