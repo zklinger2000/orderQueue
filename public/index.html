@@ -87,42 +87,16 @@
       </div>
     </div>   
  
-    <!-- KEN COLUMN -->        
-    <div ng-show="(orders | byCrewName:'Ken').length" class="ng-hide col-md-4">
-		<div class="alert alert-info">
-          <h3>Ken</h3>
-		  <h4 style="display:inline-block; min-width:65%;" ng-model="formData.date">{{ formData.date | date:'fullDate' }}</h4>
-          <h4 style="display:inline-block; min-width:30%;">Total: ${{getTotalByCrew('Ken')}}</h4>
-		  <div ng-repeat="order in orders | byCrewName:'Ken'">{{ order.custName }}  ${{order.total}}</div>
-		</div>
-    </div>
-    <!-- GARY COLUMN -->
-    <!-- when $scope.myValue is falsy (element is hidden) -->
-    <div ng-show="(orders | byCrewName:'Gary').length" class="ng-hide col-md-4">
-		<div class="alert alert-danger">
-          <h3>Gary</h3>
-		  <h4 style="display:inline-block; min-width:65%;" ng-model="formData.date">{{ formData.date | date:'fullDate' }}</h4>
-          <h4 style="display:inline-block; min-width:30%;">Total: ${{getTotalByCrew('Gary')}}</h4>
-		  <div ng-repeat="order in orders | byCrewName:'Gary'">{{ order.custName }}  ${{order.total}}</div>
-		</div>
-    </div>
-    <!-- JIM COLUMN -->        
-    <div ng-show="(orders | byCrewName:'Jim').length" class="ng-hide col-md-4">
-		<div class="alert alert-danger">
-          <h3>Jim</h3>
-		  <h4 style="display:inline-block; min-width:65%;" ng-model="formData.date">{{ formData.date | date:'fullDate' }}</h4>
-          <h4 style="display:inline-block; min-width:30%;">Total: ${{getTotalByCrew('Jim')}}</h4>
-		  <div ng-repeat="order in orders | byCrewName:'Jim'">{{ order.custName }}  ${{order.total}}</div>
-		</div>
-    </div>
-    <!-- DAVID COLUMN -->        
-    <div ng-show="(orders | byCrewName:'David').length" class="ng-hide col-md-4">
-		<div class="alert alert-danger">
-          <h3>David</h3>
-		  <h4 style="display:inline-block; min-width:65%;" ng-model="formData.date">{{ formData.date | date:'fullDate' }}</h4>
-          <h4 style="display:inline-block; min-width:30%;">Total: ${{getTotalByCrew('David')}}</h4>
-		  <div ng-repeat="order in orders | byCrewName:'David'">{{ order.custName }}  ${{order.total}}</div>
-		</div>
+    <!-- KEN COLUMN -->   
+    <div ng-repeat="crew in formData.crews">
+      <div ng-show="(orders | byCrewName:crew.foreman).length" class="ng-hide col-md-4">
+          <div class="alert alert-info">
+            <h3>{{ crew.foreman }}</h3>
+            <h4 style="display:inline-block; min-width:65%;" ng-model="formData.date">{{ formData.date | date:'fullDate' }}</h4>
+            <h4 style="display:inline-block; min-width:30%;">Total: ${{getTotalByCrew('Ken')}}</h4>
+            <div ng-repeat="order in orders | byCrewName:crew.foreman">{{ order.custName }}  ${{order.total}}</div>
+          </div>
+      </div>
     </div>
 
     
