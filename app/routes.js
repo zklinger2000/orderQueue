@@ -1,6 +1,8 @@
 var Order = require('./models/order');
 
+//============================================================================
 function getOrders(res){
+//============================================================================
 	console.log("*** app/routes.js getOrders(res) *** " + Date.now());
 	Order.find(function(err, orders) {
 			// if there is an error retrieving, send the error. nothing after res.send(err) will execute
@@ -11,13 +13,31 @@ function getOrders(res){
 		});
 };
 
-
+//============================================================================
 function getOrdersByDate(date, res){
-	console.log("*** app/routes.js getOrdersByDate(req, res) *** " + Date.now() + " date: " + date);
+//============================================================================
+	console.log("*** app/routes.js getOrdersByDate(" + date + ", res) *** " + Date.now());
 	Order.find({
 		//"date": {"$gt": new Date(2015, 6, 19), "$lt": new Date(2015, 6, 20)}
 		//"date" : {"$lt": req.params.order_date}
 		"date" : date
+	}, function(err, orders) {
+		if (err)
+			res.send(err);
+
+		res.json(orders); // return all orders in JSON format
+	})
+};
+
+//============================================================================
+function getOrdersByDateAndCrew(date, crew, res){
+//============================================================================
+	console.log("*** app/routes.js getOrdersByDateAndCrew(" + date + ", " + crew + ", res) *** " + Date.now());
+	Order.find({
+		//"date": {"$gt": new Date(2015, 6, 19), "$lt": new Date(2015, 6, 20)}
+		//"date" : {"$lt": req.params.order_date}
+		"date" : date,
+		"crew" : crew
 	}, function(err, orders) {
 		if (err)
 			res.send(err);
@@ -59,6 +79,12 @@ module.exports = function(app) {
 			//getOrders(res);
 		});
 
+	});
+
+	// retrieve orders by date and crew
+	app.get('/api/orders/:order_date/:order_crew', function(req, res) {
+		console.log("*** app/routes.js app.get('/api/orders/:order_date/:order_crew')  ***" + req.params.order_date + " " + req.params.order_crew);
+		getOrdersByDateAndCrew(req.params.order_date, req.params.order_crew, res);
 	});
 
 	// retrieve orders by date
