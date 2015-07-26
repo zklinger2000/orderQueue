@@ -17,6 +17,10 @@ angular.module('orderService', [])
 			getByDate : function(date) {
 				console.log("*** services/orders/ getByDate(date) ***" + Date.now());
 				return $http.get('/api/orders/' + date);
+			},
+			getByDateAndCrew : function(date, crew) {
+				console.log("*** services/orders/ getByDateAndCrew(" + date + ", " + crew + ") ***" + Date.now());
+				return $http.get('/api/orders/' + date + '/' + crew);
 			}
 		}
 	}]);
