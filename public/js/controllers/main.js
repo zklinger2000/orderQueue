@@ -89,10 +89,13 @@ angular.module('orderController', [])
 			if ($scope.formData.notes == undefined) {
 				$scope.formData.notes = '';
 			}
+			// TODO: set the rank of the job based on the number of current jobs
+			$scope.formData.rank = 99;
 			// validate the formData to make sure that something is there
 			// if form is empty, nothing will happen
 			if ($scope.formData.custName != undefined) {
 				$scope.loading = true;
+
 
 				// call the create function from our service (returns a promise object)
 				Orders.create($scope.formData)

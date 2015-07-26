@@ -63,6 +63,7 @@ module.exports = function(app) {
 		Order.create({
 			date : req.body.date,
 			crew : req.body.crew,
+			rank : req.body.rank,
 			custName : req.body.custName,
 			address: req.body.address,
 			total : req.body.total,
