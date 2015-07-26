@@ -18,46 +18,44 @@ angular.module('orderController', [])
 	// inject the Order service factory into our controller
 	.controller('mainController', ['$scope','$filter','$http','Orders', function($scope, $filter, $http, Orders) {
 		$scope.formData = {};
+		$scope.formData.crews = [{ foreman : 'Ken'}, { foreman : 'Gary'}, { foreman : 'Jim'}, { foreman : 'David'}];
 		$scope.formData.date = $filter("date")(Date.now(), 'yyyy-MM-dd');
-		/*
-		$scope.filterFn = function(crew) {
-			if(formData.crew = crew) return true;
-			return false;
-		};
-		*/
-
-		/*
-		// get the count of jobs by crew for the Date in datePicker
-		$scope.getTotalByCrew = function(crew) {
-			return Orders.getTotalByCrew(crew, $scope.formData.date);
-		};
-		*/
 
 		$scope.loading = true;
 
-		// GET =====================================================================
 		// when landing on the page, get all orders and show them
-		// use the service to get all the orders
-		console.log("*** controllers/main/ Orders.getByDate($scope.formData.date) ***" + Date.now());
 		Orders.getByDate($scope.formData.date)
-		//Orders.get()
 			.success(function(data) {
-				//console.log("*** controllers/main/ Orders.getByDate($scope.dormData.date) ***");
-				console.log("*** controllers/main/ Orders.getByDate().success ***" + Date.now());
 				$scope.orders = data;
 				$scope.loading = false;
 			});
 
+		// get the count of jobs by crew for the Date in datePicker
+		$scope.getTotalByCrew = function(crew) {
+			//return Orders.getTotalByCrew(crew, $scope.formData.date);
+			return 5;
+		};
+
+		// GET BY DATE & CREW ======================================================
+		// get all orders by date
+		$scope.getOrdersByDateAndCrew = function(crew) {
+
+			Orders.getByDateAndCrew($scope.formData.date, crew)
+				.success(function(data) {
+					return data;
+				});
+			//return an empty array if getByDateAndCrew() fails
+			return [];
+		};
+
+		// GET BY DATE =============================================================
+		// when landing on the page, get all orders and show them
 		// get all orders by date
 		$scope.getOrdersByDate = function() {
 			$scope.loading = true;
 
-			console.log("*** controllers/main/ Orders.getByDate($scope.formData.date) ***" + Date.now());
 			Orders.getByDate($scope.formData.date)
-			//Orders.get()
 				.success(function(data) {
-					//console.log("*** controllers/main/ Orders.getByDate($scope.dormData.date) ***");
-					console.log("*** controllers/main/ Orders.getByDate().success ***" + Date.now());
 					$scope.orders = data;
 					$scope.loading = false;
 				});
