@@ -15,6 +15,21 @@ angular.module('orderController', [])
 		}
 	})
 
+	// a filter that returns the totals of all jobs by day for a single crew
+	.filter('getCrewTotal', function() {
+		// when using ng-repeat, the input that gets passed is each item in the list
+		return function(input, crew) {
+			//create an integer for total amount
+			var total = 0;
+			//use Angular's forEach to loop through each item.  'job' here can be called
+			//anything because it is just the callback item variable name
+			angular.forEach(input, function(job) {
+				if (job.crew == crew) total = total + job.total;;
+			})
+			return total;
+		}
+	})
+
 	// inject the Order service factory into our controller
 	.controller('mainController', ['$scope','$filter','$http','Orders', function($scope, $filter, $http, Orders) {
 		$scope.formData = {};
@@ -32,8 +47,14 @@ angular.module('orderController', [])
 
 		// get the count of jobs by crew for the Date in datePicker
 		$scope.getTotalByCrew = function(crew) {
-			//return Orders.getTotalByCrew(crew, $scope.formData.date);
-			return 5;
+
+			Orders.getByDateAndCrew($scope.formData.date, crew)
+				.success(function(data) {
+					console.log('data.length for total = ' + data.length);
+					$scope.total = data.length;
+				});
+			//return 0;
+			//return 5;
 		};
 
 		// GET BY DATE & CREW ======================================================
@@ -42,6 +63,7 @@ angular.module('orderController', [])
 
 			Orders.getByDateAndCrew($scope.formData.date, crew)
 				.success(function(data) {
+					console.log('data.length = ' + data.length);
 					return data;
 				});
 			//return an empty array if getByDateAndCrew() fails

@@ -91,18 +91,7 @@ module.exports = function(app) {
 	// retrieve orders by date
 	app.get('/api/orders/:order_date', function(req, res) {
 		console.log("*** app/routes.js app.get('/api/orders/:order_date')  ***" + req.params.order_date);
-		/*
-		Order.find({
-			//"date": {"$gt": new Date(2015, 6, 19), "$lt": new Date(2015, 6, 20)}
-			//"date" : {"$lt": req.params.order_date}
-			"date" : req.params.order_date
-		}, function(err, orders) {
-			if (err)
-				res.send(err);
-
-			res.json(orders); // return all orders in JSON format
-		})
-		*/
+		// calling getOrdersByDate to update page data
 		getOrdersByDate(req.params.order_date, res);
 	});
 
@@ -114,6 +103,7 @@ module.exports = function(app) {
 			if (err)
 				res.send(err);
 			console.log(res);
+			// calling getOrdersByDate to update page data
 			getOrdersByDate(req.params.order_date, res);
 			//getOrdersByDate(req, res);
 			//getOrders(res);
