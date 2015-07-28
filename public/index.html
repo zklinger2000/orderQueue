@@ -87,14 +87,18 @@
       </div>
     </div>   
  
-    <!-- KEN COLUMN -->   
+    <!-- CREW COLUMNS -->   
     <div ng-repeat="crew in formData.crews">
       <div ng-show="(orders | byCrewName:crew.foreman).length" class="ng-hide col-md-4">
           <div class="alert alert-info">
             <h3>{{ crew.foreman }}</h3>
             <h4 style="display:inline-block; min-width:65%;" ng-model="formData.date">{{ formData.date | date:'fullDate' }}</h4>
             <h4 style="display:inline-block; min-width:30%;">Total: ${{ orders | getCrewTotal:crew.foreman }}</h4>
-            <div ng-repeat="order in orders | byCrewName:crew.foreman">No.{{ order.rank }} {{ order.custName }}  ${{ order.total }}</div>
+            <div ng-repeat="order in orders | byCrewName:crew.foreman | orderBy: 'rank'">
+              <label>
+                <button type="button" ng-click="moveUpRank(order._id)">UP</button>
+              </label>
+              No.{{ order.rank }} {{ order.custName }}  ${{ order.total }}</div>
           </div>
       </div>
     </div>
