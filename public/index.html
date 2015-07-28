@@ -39,10 +39,10 @@
       
       <!-- FORM TO CREATE TODOS -->
         <form class="form-inline" id="order-form">
-            <input type=date class="input-md" ng-model="formData.date" ng-change="getOrdersByDate()" id="datePicker">
+            <input type=date class="input-md" ng-model="formData.date" ng-change="getOrdersByDate(); getOrderRankByDateAndCrew(formData.crew);" id="datePicker">
             <!-- BIND THIS VALUE TO formData.custName IN ANGULAR -->
             <label for="inputCrew">Crew</label>
-            <select class="input-sm" ng-model="formData.crew" id="inputCrew">
+            <select class="input-sm" ng-model="formData.crew" ng-change="getOrderRankByDateAndCrew(formData.crew)" id="inputCrew">
               <option ng-repeat="crew in formData.crews">{{ crew.foreman }}</option>
             </select>
             <!-- BIND THIS VALUE TO formData.custName IN ANGULAR -->
@@ -64,7 +64,7 @@
             <!-- BIND THIS VALUE TO formData.notes IN ANGULAR -->
             <textarea placeholder="Notes" rows="3" cols="36" ng-model="formData.notes"></textarea>
             <!-- createToDo() WILL CREATE NEW TODOS -->
-            <button type="submit" class="btn btn-primary" ng-click="createOrder()">Add</button>
+            <button type="submit" class="btn btn-primary" ng-click="createOrder(); getOrderRankByDateAndCrew(formData.crew);">Add</button>
         </form>
     </div>
     <!-- ORDER LIST -->
@@ -94,7 +94,7 @@
             <h3>{{ crew.foreman }}</h3>
             <h4 style="display:inline-block; min-width:65%;" ng-model="formData.date">{{ formData.date | date:'fullDate' }}</h4>
             <h4 style="display:inline-block; min-width:30%;">Total: ${{ orders | getCrewTotal:crew.foreman }}</h4>
-            <div ng-repeat="order in orders | byCrewName:crew.foreman">{{ order.custName }}  ${{ order.total }} No.{{ order.rank }}</div>
+            <div ng-repeat="order in orders | byCrewName:crew.foreman">No.{{ order.rank }} {{ order.custName }}  ${{ order.total }}</div>
           </div>
       </div>
     </div>

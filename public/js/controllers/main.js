@@ -59,15 +59,15 @@ angular.module('orderController', [])
 
 		// GET BY DATE & CREW ======================================================
 		// get all orders by date
-		$scope.getOrdersByDateAndCrew = function(crew) {
+		$scope.getOrderRankByDateAndCrew = function(crew) {
+			$scope.loading = true;
 
 			Orders.getByDateAndCrew($scope.formData.date, crew)
 				.success(function(data) {
 					console.log('data.length = ' + data.length);
-					return data;
+					$scope.formData.rank = data.length + 1;
+					$scope.loading = false;
 				});
-			//return an empty array if getByDateAndCrew() fails
-			return [];
 		};
 
 		// GET BY DATE =============================================================
@@ -111,8 +111,10 @@ angular.module('orderController', [])
 			if ($scope.formData.notes == undefined) {
 				$scope.formData.notes = '';
 			}
-			// TODO: set the rank of the job based on the number of current jobs
-			$scope.formData.rank = 99;
+			// let Rank field be blank
+			if ($scope.formData.rank == undefined) {
+				$scope.formData.rank = 1;
+			}
 			// validate the formData to make sure that something is there
 			// if form is empty, nothing will happen
 			if ($scope.formData.custName != undefined) {
