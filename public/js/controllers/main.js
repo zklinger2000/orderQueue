@@ -4,12 +4,13 @@ angular.module('orderController', [])
 	.filter('byCrewName', function() {
 		// when using ng-repeat, the input that gets passed is each item in the list
 		return function(input, crew) {
-			//create an empty array for output of items
+			// create an empty array for output of items
 			var out = [];
-			//use Angular's forEach to loop through each item.  'job' here can be called
-			//anything because it is just the callback item variable name
-			angular.forEach(input, function(job) {
-				if (job.crew == crew) out.push(job);
+			// use Angular's forEach to loop through each item.
+			// 'order' here can be called
+			// anything because it is just the callback item variable name
+			angular.forEach(input, function(order) {
+				if (order.crew == crew) out.push(order);
 			})
 			return out;
 		}
@@ -19,21 +20,26 @@ angular.module('orderController', [])
 	.filter('getCrewTotal', function() {
 		// when using ng-repeat, the input that gets passed is each item in the list
 		return function(input, crew) {
-			//create an integer for total amount
+			// create an integer for total amount
 			var total = 0;
-			//use Angular's forEach to loop through each item.  'job' here can be called
-			//anything because it is just the callback item variable name
-			angular.forEach(input, function(job) {
-				if (job.crew == crew) total = total + job.total;;
+			// use Angular's forEach to loop through each item.
+			angular.forEach(input, function(order) {
+				if (order.crew == crew) total = total + order.total;;
 			})
 			return total;
 		}
 	})
 
 	// inject the Order service factory into our controller
-	.controller('mainController', ['$scope','$filter','$http','Orders', function($scope, $filter, $http, Orders) {
+	.controller('mainController', ['$scope','$filter','$http','Orders',
+		function($scope, $filter, $http, Orders) {
 		$scope.formData = {};
-		$scope.formData.crews = [{ foreman : 'Ken'}, { foreman : 'Gary'}, { foreman : 'Jim'}, { foreman : 'David'}];
+		$scope.formData.crews = [
+			{ foreman : 'Ken'},
+			{ foreman : 'Gary'},
+			{ foreman : 'Jim'},
+			{ foreman : 'David'}
+		];
 		$scope.formData.date = $filter("date")(Date.now(), 'yyyy-MM-dd');
 
 		$scope.loading = true;
@@ -53,8 +59,6 @@ angular.module('orderController', [])
 					console.log('data.length for total = ' + data.length);
 					$scope.total = data.length;
 				});
-			//return 0;
-			//return 5;
 		};
 
 		// GET BY DATE & CREW ======================================================
@@ -120,11 +124,10 @@ angular.module('orderController', [])
 			if ($scope.formData.custName != undefined) {
 				$scope.loading = true;
 
-
-				// call the create function from our service (returns a promise object)
+				// call create function from our service (returns a promise object)
 				Orders.create($scope.formData)
 
-					// if successful creation, call our get function to get all the new orders
+					// if successful creation, call get function to refresh orders
 					.success(function(data) {
 						// clear the form so our user is ready to enter another
 						$scope.formData.custName = '';
@@ -144,7 +147,7 @@ angular.module('orderController', [])
 			$scope.loading = true;
 
 			Orders.delete(id, date)
-				// if successful creation, call our get function to get all the new orders
+				// if successful deletion, call get function to refresh orders
 				.success(function(data) {
 					$scope.orders = data; // assign our new list of orders
 					$scope.loading = false;
