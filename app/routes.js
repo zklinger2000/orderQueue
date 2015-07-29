@@ -107,7 +107,7 @@ module.exports = function(app) {
 	});
 
 	// move an order up in rank
-	app.get('/api/orders/rank/:order_id/:order_date', function(req, res) {
+	app.get('/api/orders/rankUp/:order_id/:order_date', function(req, res) {
 		Order.findOne({
 			_id : req.params.order_id
 		}, function(err, loRankOrder) {
@@ -151,7 +151,54 @@ module.exports = function(app) {
 					});
 				});
 			};
+		});
+	});
 
+	// move an order down in rank
+	app.get('/api/orders/rankDown/:order_id/:order_date/:order_size', function(req, res) {
+		Order.findOne({
+			_id : req.params.order_id
+		}, function(err, hiRankOrder) {
+			if (err)
+				res.send(err);
+			//console.log(res);
+			// if rank of returned Order is not 1, 
+			console.log("rank: " + hiRankOrder.rank);
+			if (hiRankOrder.rank < req.params.order_size) {
+				var lowerRank = hiRankOrder.rank + 1;
+				// find the Order to swap ranks with by date, crew and rank
+				Order.findOne({
+					date : hiRankOrder.date,
+					crew : hiRankOrder.crew,
+					rank : lowerRank
+				}, function(err, loRankOrder) {
+					if (err)
+						res.send(err);
+					console.log(loRankOrder);
+					// move down hiRankOrder 
+					Order.update({
+						_id : loRankOrder._id },
+						// subtract 1 from loRankOrder's rank
+						{ $inc: { rank : -1 }
+					}, function(err, loOrder) {
+						if (err)
+							res.send(err);
+						//console.log(res);
+						// move up loRankOrder
+						Order.update({
+							_id : req.params.order_id },
+							// add 1 to hiRankOrder's rank
+							{ $inc: { rank : 1 }
+						}, function(err, hiOrder) {
+							if (err)
+								res.send(err);
+							//console.log(res);
+							// call getOrdersByDate to update page data
+							getOrdersByDate(req.params.order_date, res);
+						});
+					});
+				});
+			};
 		});
 	});
 

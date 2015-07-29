@@ -24,7 +24,11 @@ console.log("** services/orders/ getByDateAndCrew(" + date + ", " + crew + ") **
 			},
 			moveUpRank: function(id, date) {
 console.log("*** services/orders/ moveUpRank(" + id + ", " + date + ") ***");
-				return $http.get('/api/orders/rank/' + id + '/' + date);
+				return $http.get('/api/orders/rankUp/' + id + '/' + date);
+			},
+			moveDownRank: function(id, date, size) {
+console.log("*** services/orders/ moveDownRank(" + id + ", " + date + ", " + size + ") ***");
+				return $http.get('/api/orders/rankDown/' + id + '/' + date + '/' + size);
 			}
 		}
 	}]);

@@ -167,4 +167,18 @@ angular.module('orderController', [])
 					$scope.loading = false;
 				});
 		};
+
+		// MOVE DOWN RANK ==========================================================
+		// 
+		$scope.moveOrderDownRank = function(id, date, size) {
+			console.log('moveOrderDownRank CALLED');// log message
+			$scope.loading = true;
+
+			Orders.moveDownRank(id, date, size)
+				// if id is found, call our get function to update the orders
+				.success(function(data) {
+					$scope.orders = data; // assign our new list of orders
+					$scope.loading = false;
+				});
+		};
 	}]);

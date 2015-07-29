@@ -98,6 +98,9 @@
               <label>
                 <button type="button" ng-show="order.rank !== 1" ng-click="moveOrderUpRank(order._id, formData.date)">UP</button>
               </label>
+              <label>
+                <button type="button" ng-show="order.rank < (orders | byCrewName:crew.foreman).length" ng-click="moveOrderDownRank(order._id, formData.date, (orders | byCrewName:crew.foreman).length)">DOWN</button>
+              </label>
               {{ order.rank }} {{ order.custName }}  ${{ order.total }}</div>
           </div>
       </div>
