@@ -96,9 +96,9 @@
             <h4 style="display:inline-block; min-width:30%;">Total: ${{ orders | getCrewTotal:crew.foreman }}</h4>
             <div ng-repeat="order in orders | byCrewName:crew.foreman | orderBy: 'rank'">
               <label>
-                <button type="button" ng-click="moveUpRank(order._id)">UP</button>
+                <button type="button" ng-show="order.rank !== 1" ng-click="moveOrderUpRank(order._id, formData.date)">UP</button>
               </label>
-              No.{{ order.rank }} {{ order.custName }}  ${{ order.total }}</div>
+              {{ order.rank }} {{ order.custName }}  ${{ order.total }}</div>
           </div>
       </div>
     </div>

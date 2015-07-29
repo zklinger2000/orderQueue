@@ -76,8 +76,6 @@ module.exports = function(app) {
 
 			// get and return all the orders after you create another
 			getOrdersByDate(req.body.date, res);
-			//getOrdersByDate(req, res);
-			//getOrders(res);
 		});
 
 	});
@@ -103,10 +101,57 @@ module.exports = function(app) {
 			if (err)
 				res.send(err);
 			console.log(res);
-			// calling getOrdersByDate to update page data
+			// call getOrdersByDate to update page data
 			getOrdersByDate(req.params.order_date, res);
-			//getOrdersByDate(req, res);
-			//getOrders(res);
+		});
+	});
+
+	// move an order up in rank
+	app.get('/api/orders/rank/:order_id/:order_date', function(req, res) {
+		Order.findOne({
+			_id : req.params.order_id
+		}, function(err, loRankOrder) {
+			if (err)
+				res.send(err);
+			//console.log(res);
+			// if rank of returned Order is not 1, 
+			console.log("rank: " + loRankOrder.rank);
+			if (loRankOrder.rank !== 1) {
+				var higherRank = loRankOrder.rank - 1;
+				// find the Order to swap ranks with by date, crew and rank, then add 1
+				Order.findOne({
+					date : loRankOrder.date,
+					crew : loRankOrder.crew,
+					rank : higherRank
+				}, function(err, hiRankOrder) {
+					if (err)
+						res.send(err);
+					console.log(hiRankOrder);
+					// move down hiRankOrder 
+					Order.update({
+						_id : hiRankOrder._id },
+						// add 1 to hiRankOrder's rank
+						{ $inc: { rank : 1 }
+					}, function(err, hiOrder) {
+						if (err)
+							res.send(err);
+						//console.log(res);
+						// move up loRankOrder
+						Order.update({
+							_id : req.params.order_id },
+							// subtract 1 from loRankOrder's rank
+							{ $inc: { rank : -1 }
+						}, function(err, loOrder) {
+							if (err)
+								res.send(err);
+							//console.log(res);
+							// call getOrdersByDate to update page data
+							getOrdersByDate(req.params.order_date, res);
+						});
+					});
+				});
+			};
+
 		});
 	});
 

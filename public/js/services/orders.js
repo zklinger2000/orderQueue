@@ -21,6 +21,10 @@ angular.module('orderService', [])
 			getByDateAndCrew : function(date, crew) {
 				console.log("*** services/orders/ getByDateAndCrew(" + date + ", " + crew + ") ***" + Date.now());
 				return $http.get('/api/orders/' + date + '/' + crew);
+			},
+			moveUpRank: function(id, date) {
+				console.log("*** services/orders/ moveUpRank(" + id + ", " + date + ") ***" + Date.now());
+				return $http.get('/api/orders/rank/' + id + '/' + date);
 			}
 		}
 	}]);

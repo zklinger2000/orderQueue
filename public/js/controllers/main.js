@@ -126,7 +126,6 @@ angular.module('orderController', [])
 
 					// if successful creation, call our get function to get all the new orders
 					.success(function(data) {
-						$scope.loading = false;
 						// clear the form so our user is ready to enter another
 						$scope.formData.custName = '';
 						$scope.formData.address = '';
@@ -134,6 +133,7 @@ angular.module('orderController', [])
 						$scope.formData.confirm = undefined;
 						$scope.formData.notes = '';
 						$scope.orders = data; // assign our new list of orders
+						$scope.loading = false;
 					});
 			}
 		};
@@ -146,8 +146,22 @@ angular.module('orderController', [])
 			Orders.delete(id, date)
 				// if successful creation, call our get function to get all the new orders
 				.success(function(data) {
-					$scope.loading = false;
 					$scope.orders = data; // assign our new list of orders
+					$scope.loading = false;
+				});
+		};
+
+		// MOVE UP RANK ============================================================
+		// 
+		$scope.moveOrderUpRank = function(id, date) {
+			console.log('moveOrderUpRank CALLED');// log message
+			$scope.loading = true;
+
+			Orders.moveUpRank(id, date)
+				// if id is found, call our get function to update the orders
+				.success(function(data) {
+					$scope.orders = data; // assign our new list of orders
+					$scope.loading = false;
 				});
 		};
 	}]);
