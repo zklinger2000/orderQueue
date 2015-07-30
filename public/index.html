@@ -32,11 +32,9 @@
   
 <!-- 3 COLUMNS -->
 <div class="container-fluid">
-  <div class="row">
     <!-- ORDER INPUT -->
     <div class="alert alert-info col-md-12">
-      <h2>Add Job</h2>
-      
+      <h2>Add Job</h2>      
       <!-- FORM TO CREATE TODOS -->
         <form class="form-inline" id="order-form">
             <input type=date class="input-md" ng-model="formData.date" ng-change="getOrdersByDate(); getOrderRankByDateAndCrew(formData.crew);" id="datePicker">
@@ -67,47 +65,38 @@
             <button type="submit" class="btn btn-primary" ng-click="createOrder(); getOrderRankByDateAndCrew(formData.crew);">Add</button>
         </form>
     </div>
-    <!-- ORDER LIST -->
+
     <!-- EMPTY SCHEDULE COLUMN -->        
     <div ng-hide="orders.length" class="ng-show">
 		<div class="alert alert-danger">
 		  <h1 style="display:block; text-align:center; min-width:90%;" ng-model="formData.date">No Jobs scheduled for {{ formData.date | date:'fullDate' }}</h1>
 		</div>
     </div>
-    
-    <div class="col-md-4">
-      <div class="alert alert-danger">	
-        <h2>Customers in Queue <span class="label label-info">{{ orders.length }}</span></h2>
-        <!-- LOOP OVER THE TODOS IN $scope.orders -->
-        <div class="checkbox" ng-repeat="order in orders">
-          <label>
-            <input type="checkbox" ng-click="deleteOrder(order._id, order.date)"> {{ order.custName }}
-          </label>
-        </div>
-      </div>
-    </div>   
  
     <!-- CREW COLUMNS -->   
     <div ng-repeat="crew in formData.crews">
-      <div ng-show="(orders | byCrewName:crew.foreman).length" class="ng-hide col-md-4">
+      <div ng-show="(orders | byCrewName:crew.foreman).length" class="ng-hide col-md-6">
           <div class="alert alert-info">
-            <h3>{{ crew.foreman }}</h3>
-            <h4 style="display:inline-block; min-width:65%;" ng-model="formData.date">{{ formData.date | date:'fullDate' }}</h4>
-            <h4 style="display:inline-block; min-width:30%;">Total: ${{ orders | getCrewTotal:crew.foreman }}</h4>
+            <p style="font-size:1.5em; font-weight:bold;">{{ crew.foreman }}</p>
+            <h4 style="display:inline-block; min-width:75%;" ng-model="formData.date">{{ formData.date | date:'fullDate' }}</h4>
+            <h4 style="display:inline-block; min-width:15%;">Total: ${{ orders | getCrewTotal:crew.foreman }}</h4>
             <div ng-repeat="order in orders | byCrewName:crew.foreman | orderBy: 'rank'">
-              <label>
-                <button type="button" ng-show="order.rank !== 1" ng-click="moveOrderUpRank(order._id, formData.date)">UP</button>
-              </label>
-              <label>
-                <button type="button" ng-show="order.rank < (orders | byCrewName:crew.foreman).length" ng-click="moveOrderDownRank(order._id, formData.date, (orders | byCrewName:crew.foreman).length)">DOWN</button>
-              </label>
-              {{ order.rank }} {{ order.custName }}  ${{ order.total }}</div>
+              <div style="display:block; line-height:2em; font-size:1.2em; vertical-align:middle;">
+                <button type="button" class="fa fa-chevron-up" style="font-size:0.8em;" ng-disabled="order.rank === 1" ng-click="moveOrderUpRank(order._id, formData.date)"></button>
+                <button type="button" class="fa fa-chevron-down" style="font-size:0.8em;" ng-disabled="order.rank >= (orders | byCrewName:crew.foreman).length" ng-click="moveOrderDownRank(order._id, formData.date, (orders | byCrewName:crew.foreman).length)"></button>
+                <div style="display:inline-block; width:5%; margin-right:-5px; text-align:center; font-weight:bold;">{{ order.rank }}</div>
+                <div style="display:inline-block; width:25%; margin-right:-5px;">{{ order.custName }}</div>
+                <div style="display:inline-block; width:35%; margin-right:-5px;">{{ order.address }}</div>
+                <div style="display:inline-block; width:15%; margin-right:-5px;">$ {{ order.total }}</div>
+                <div style="display:inline-block; width:5%; font-size:0.8em; margin-right:-5px;">
+                  <button type="button" class="fa fa-times" ng-click="deleteOrder(order._id, order.date)"></button>
+                </div>
+              </div>
+            </div>
           </div>
       </div>
     </div>
 
-    
-  </div>
 </div>
 </body>
 </html>
